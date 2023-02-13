@@ -2,7 +2,7 @@ import {FaRegComment} from "react-icons/fa"
 import {Link} from "react-router-dom"
 function BlogCard(props){
     return (
-    <Link to="/blog">
+    <Link to={`/blog/${props.data._id}`}>
     <div className="bg-white border rounded-md mb-4">
         <div>
             <img className="rounded-t-md" src="https://appmaster.io/api/_files/PqV7MuNwv89GrZvBd4LNNK/download/ " alt="sawir"/>

@@ -3,13 +3,12 @@ import SideBar from "../Components/SideBar"
 import ListCard from "../Components/ListCard"
 import axios from "axios"
 import { useEffect, useState } from "react"
-
-
+import { getAllBlogs } from "../Utils/Api"
 
 function Home(){
     const [blogs,setBlogs] = useState([])
     useEffect(() =>{
-        axios.get("http://localhost:8000/blog").then((res)=>{
+        getAllBlogs().then((res)=>{
             setBlogs(res.data.blogs)
 
         }).catch((e)=>{

@@ -1,9 +1,14 @@
 import { Link } from "react-router-dom"
+import { UserContext } from "../Utils/UserContext";
+import { useContext, useEffect } from "react";
 
 function SideBar(){
+    const { user } = useContext(UserContext);
     return(
         <div className=" h-fit basis-1/5 ">
+            {!user && 
                 <div className="bg-white rounded-md border px-5 pt-2 pb-8">
+                
                     <h2 className="font-bold text-xl">DEV community 👨‍💻👩‍💻 is a community of 988,949 amazing developers</h2>
                     <p className="py-2">We're a place where coders share, stay up-to-date and grow their careers. </p>
                     <div className="flex flex-col justify-center space-y-3">
@@ -15,6 +20,7 @@ function SideBar(){
                       </Link>  
                     </div>      
                 </div>
+}
                 <div className="py-5 space-y-1.5">
                     <div className="flex items-center">
                         <div className="w-6">🏠</div>

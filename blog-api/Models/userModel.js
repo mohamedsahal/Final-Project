@@ -17,6 +17,15 @@ const userSchema = mongoose.Schema({
         type:String,
         require:true
     },
+    location: {
+        type: String,
+      },
+      bio: {
+        type: String,
+      },
+      work: {
+        type: String,
+      }
 })
 
 const userModel = mongoose.model('User',userSchema)

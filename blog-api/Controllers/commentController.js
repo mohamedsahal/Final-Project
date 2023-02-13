@@ -2,7 +2,8 @@ const Comment = require("../Models/commentModel")
 
 exports.comments = async(req,res)=>{
     try{
-        const comments = await Comment.find({})
+        const {id} = req.params
+        const comments = await Comment.find({blog:id}).populate("user").populate("blog")
         res.status(200).json({comments})
     }catch(e){
         res.status(400).json({message:"Oops theres an error fetching the comments"})
@@ -11,6 +12,7 @@ exports.comments = async(req,res)=>{
 
 exports.saveComment = async(req,res)=>{
     try{
+        req.body.user = req.user.id
         await Comment.create(req.body)
         res.status(200).json({message:"You have created a comment"})
     }catch(e){

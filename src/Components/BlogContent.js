@@ -1,6 +1,6 @@
 import BlogComments from "./BlogComments"
 
-function BlogContent(){
+function BlogContent(props){
     return(
         <div className="flex-1">
         <div className="bg-white rounded-md">
@@ -17,9 +17,9 @@ function BlogContent(){
                 <small className="text-gray-400">Jan 12</small>
             </div>
             </div>
-            <h3 className="font-bold text-5xl hover:text-sky-600">This is my first blog about APIs and requests and responses</h3>
+            <h3 className="font-bold text-5xl hover:text-sky-600">{props.blog.title}</h3>
             <div className="py-10">
-                This is a blog about this and that
+                {props.blog.content}
             </div>
             </div>
             <BlogComments/>

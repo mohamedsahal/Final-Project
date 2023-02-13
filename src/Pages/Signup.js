@@ -1,13 +1,14 @@
 import { useState } from "react"
-import axios from "axios"
+import { toast } from "react-toastify"
+import { signup } from "../Utils/Api"
 
 
 function Signup(){
     const[inputs,setInputs] = useState({ })
     function handleOnSubmit(){
-        axios.post("http://localhost:8000/auth/signup",inputs)
-        .then((res)=> console.log(res))
-        .catch((e)=> console.log(e))
+        signup(inputs)
+        .then((res)=> toast.success("Accout Created"))
+        .catch((e)=> toast.error(e.response.data.message))
     }
     return (
         <div className="bg-white m-auto mt-10 rounded-md p-10 w-[650px] ">

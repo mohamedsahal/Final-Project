@@ -1,7 +1,22 @@
 import {CiEdit} from "react-icons/ci"
 import {MdOutlineDelete} from "react-icons/md"
+import { useState,useEffect } from "react"
+import { getUsersblogs } from "../Utils/Api"
+
 
 function BlogList(){
+    const [blogs,setBlogs] = useState([])
+    
+    useEffect(()=>{
+        getUsersblogs()
+        .then((res)=>{
+            setBlogs(res.data.blogs)
+        }).catch((e)=>{
+            console.log(e)
+        })
+
+    },[])
+
     return(
     <div className="mt-5">
        <table className="table-auto w-full">
@@ -13,11 +28,13 @@ function BlogList(){
             </tr>
         </thead>
         <tbody>
+            {blogs.map((blog)=>
             <tr className="border-y h-10">
-            <td>The Sliding Mr. Bones (Next Stop, Pottersville)</td>
+            <td>{blog.title}</td>
             <td><CiEdit className="text-blue-800"/></td>
             <td><MdOutlineDelete className="text-red-500"/></td>
             </tr>
+            )}
         </tbody>
         </table>
     </div>
