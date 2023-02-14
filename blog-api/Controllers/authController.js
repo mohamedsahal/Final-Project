@@ -45,6 +45,22 @@ try{
 }
 }
 
+exports. profile = async (req, res) => {
+  try {
+    //finding the user id
+
+    const findId = req.user.id;
+    //finding Id and updating
+    await User.findByIdAndUpdate(findId, req.body).then(() => {
+      res
+        .status(200)
+        .json({ message: "you've succesfully changed your profile" });
+    });
+  } catch {
+    res.status(200).json({ message: "OOPS couldn't change your profile" });
+  }
+};
+
 
 exports.protect =  (req,res,next)=>{
     try{
