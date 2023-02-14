@@ -1,5 +1,4 @@
 import { useState } from "react"
-import axios from "axios"
 import { toast } from "react-toastify"
 import { UserContext } from "../Utils/UserContext";
 import { useContext } from "react";

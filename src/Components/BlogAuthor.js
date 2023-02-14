@@ -2,7 +2,7 @@ import { useEffect } from "react"
 
 function BlogAuthor(props){
     useEffect(()=>{
-        console.log(props)
+        
 
     },[])
     return(

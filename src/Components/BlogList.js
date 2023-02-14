@@ -2,9 +2,14 @@ import {CiEdit} from "react-icons/ci"
 import {MdOutlineDelete} from "react-icons/md"
 import { useState,useEffect } from "react"
 import { getUsersblogs } from "../Utils/Api"
+import { useNavigate } from "react-router-dom";
 
 
 function BlogList(){
+    const navigate = useNavigate();
+    function handleOnEdit(id){
+        navigate(`/edit/${id}`);
+    }
     const [blogs,setBlogs] = useState([])
     
     useEffect(()=>{
@@ -28,17 +33,26 @@ function BlogList(){
             </tr>
         </thead>
         <tbody>
-            {blogs.map((blog)=>
-            <tr className="border-y h-10">
-            <td>{blog.title}</td>
-            <td><CiEdit className="text-blue-800"/></td>
-            <td><MdOutlineDelete className="text-red-500"/></td>
-            </tr>
-            )}
+        {blogs.map((blog) => {
+  return (
+    <tr className="border-y h-10">
+      <td>{blog.title}</td>
+      <td>
+        <CiEdit
+          className="text-blue-800 cursor-pointer"
+          onClick={() => handleOnEdit(blog._id)}
+        />
+      </td>
+      <td>
+        <MdOutlineDelete className="text-red-500 cursor-pointer" />
+      </td>
+    </tr>
+  );
+})}
         </tbody>
         </table>
     </div>
     )
 }
 
-export default BlogList
+export default BlogList;

@@ -13,6 +13,7 @@ import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { useState, useEffect } from "react";
 import { UserContext } from "./Utils/UserContext";
+import Edit from "./Pages/Edit";
 
 
 
@@ -42,6 +43,7 @@ function App() {
 
           <Route path="/dashboard" element={ <ProtectRoute><Dashboard/> </ProtectRoute>}/>
           <Route path="/new" element={<ProtectRoute><New/></ProtectRoute>}/>
+          <Route path="/edit/:id" element={<ProtectRoute><Edit/></ProtectRoute>}/>
           <Route path="/profile" element={<ProtectRoute><Profile/></ProtectRoute>}/>
           <Route path="/change" element={<ProtectRoute><ChangePassword/></ProtectRoute>}/>
         </Routes>

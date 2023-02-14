@@ -12,7 +12,7 @@ function BlogComments(){
     const { user } = useContext(UserContext);
     const [comment, setComment] = useState("");
     const [Comments , setComments] = useState([])
-    const token = localStorage.getItem("token");
+    
   //fetching the comments from database using useEffect 
   useEffect(()=>{
     getComments(id).then((res)=>{
@@ -39,7 +39,7 @@ function BlogComments(){
             <div className="py-5">
                 <div className="flex space-x-2">
                 <div className="h-12 w-12">               
-                     <img className="rounded-full" src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80"/>
+                     <img className="rounded-full" src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80" alt=""/>
                 </div>
                     <textarea className="border w-full rounded-md p-2" placeholder="Add to the discussion" onChange={(e) => setComment(e.target.value)}></textarea>
                 </div>

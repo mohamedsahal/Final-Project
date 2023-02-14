@@ -52,3 +52,9 @@ export const postComment =(comment,id)=>{
    }
  )
 }
+
+
+
+export const updateBlog = (id, blog) => {
+   return axios.put(`${URL}/blog/${id}`, blog)
+ }

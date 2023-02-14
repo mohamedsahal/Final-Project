@@ -8,7 +8,6 @@ function New() {
   const navigate = useNavigate();
   // a function will handle the new posts
   function handleOnSubmit() {
-    const token = localStorage.getItem("token");
     newPost(inputs)
       .then(() => {
         toast.success("Blog posted");
