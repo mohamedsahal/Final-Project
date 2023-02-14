@@ -64,3 +64,9 @@ export const updateBlog = (id, blog) => {
      .put(`${URL}/auth/signup`, inputs, {
        headers: { Authorization: token },
      })}
+
+
+     export const deleteBlog =(id)=>{
+      return axios.delete(`${URL}/blog/${id}`)
+   
+   }

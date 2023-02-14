@@ -1,8 +1,10 @@
 import {CiEdit} from "react-icons/ci"
 import {MdOutlineDelete} from "react-icons/md"
 import { useState,useEffect } from "react"
-import { getUsersblogs } from "../Utils/Api"
+import { getUsersblogs,deleteBlog } from "../Utils/Api"
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
 
 
 function BlogList(){
@@ -21,6 +23,24 @@ function BlogList(){
         })
 
     },[])
+
+    function handleOnDelete(id) {
+      deleteBlog(id)
+        .then((res) => {
+          toast.success(res.data.message);
+          getUsersblogs()
+            .then((res) => {
+              setBlogs(res.data.blogs);
+            })
+            .catch((e) => {
+              console.log(e);
+            });
+        })
+        .catch((e) => {
+          toast.error(e.response.data.message);
+        });
+    }
+    
 
     return(
     <div className="mt-5">
@@ -44,7 +64,9 @@ function BlogList(){
         />
       </td>
       <td>
-        <MdOutlineDelete className="text-red-500 cursor-pointer" />
+        <MdOutlineDelete className="text-red-500 cursor-pointer" 
+        onClick={() => handleOnDelete(blog._id)}
+        />
       </td>
     </tr>
   );
