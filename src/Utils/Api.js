@@ -70,3 +70,8 @@ export const updateBlog = (id, blog) => {
       return axios.delete(`${URL}/blog/${id}`)
    
    }
+
+   export const deleteComment =(id)=>{
+      return axios.delete(`${URL}/comment/${id}`)
+   
+   }

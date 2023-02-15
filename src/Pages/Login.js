@@ -3,9 +3,11 @@ import { toast } from "react-toastify"
 import { UserContext } from "../Utils/UserContext";
 import { useContext } from "react";
 import { login } from "../Utils/Api";
+import { useNavigate } from "react-router-dom";
 
 
 function Login(){
+    const navigate = useNavigate();
     const [inputs, setInputs] = useState({});
     const { setUser } = useContext(UserContext);
     function handleOnSubmit() {
@@ -14,6 +16,7 @@ function Login(){
             localStorage.setItem("token", res.data.token);
             setUser(true);
             toast.success(res.data.message);
+            navigate(`/Dashboard`);
           })
           .catch((e) => {
             toast.error(e.response.data.message);
