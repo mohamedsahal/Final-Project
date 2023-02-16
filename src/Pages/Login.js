@@ -35,7 +35,7 @@ function Login(){
                 </div>
                 <div className="flex flex-col">
                     <span className="py-2">Password</span>
-                    <input className="border border-gray-300 p-2 rounded-md" type="text"  onChange={(e) => setInputs({ ...inputs, password: e.target.value })}/>
+                    <input className="border border-gray-300 p-2 rounded-md" type="password"  onChange={(e) => setInputs({ ...inputs, password: e.target.value })}/>
                 </div>
                
             </div>

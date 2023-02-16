@@ -1,23 +1,26 @@
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 import jwtDecode from "jwt-decode";
 import { deleteComment } from "../Utils/Api";
 import { toast } from "react-toastify";
 
 
 
-
 function Comment(props) {
- 
+
   const [user, setUser] = useState(null);
+  
+
   useEffect(() => {
   
     const token = localStorage.getItem("token");
+
     if (token) {
       const decodedToken = jwtDecode(token);
       setUser(decodedToken.id);
     }
   }, []);
+
 
   function handleDelete() {
     deleteComment(props.data._id)

@@ -1,7 +1,6 @@
 import BlogCard from "../Components/BlogCard"
 import SideBar from "../Components/SideBar"
 import ListCard from "../Components/ListCard"
-import axios from "axios"
 import { useEffect, useState } from "react"
 import { getAllBlogs } from "../Utils/Api"
 

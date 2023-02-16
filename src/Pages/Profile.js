@@ -6,7 +6,6 @@ import { profileupdate } from "../Utils/Api";
 function Profile() {
     const navigate = useNavigate();
   const [inputs, setInputs] = useState({});
-  const token = localStorage.getItem("token");
 
   function handleOnSubmit() {
     profileupdate(inputs)

@@ -31,7 +31,7 @@ function Edit() {
     updateBlog(id,blog)
       .then((res) => {
         toast.success(res.data.message);
-        navigate("/");
+        navigate("/Dashboard");
       })
       .catch((e) => {
         toast.error(e.response.data.message);

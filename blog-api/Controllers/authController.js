@@ -2,6 +2,41 @@ const User = require("../Models/userModel")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 
+exports.password = async (req, res) => {
+  try {
+    const { email, id } = req.user;
+
+    // console.log(req.body.newPassword);
+    const { oldPassword, newPassword, ConPassword } = req.body;
+    const findUser = await User.findOne({ email });
+
+    //checking if they are matching
+    const checkingPassword = await bcrypt.compare(
+      oldPassword,
+      findUser.password
+    );
+    //checking if they are matching
+    if (checkingPassword === false) {
+      return res
+        .status(400)
+        .json({ message: "please correct your previous password" });
+    }
+
+    if (ConPassword !== newPassword) {
+      return res.status(400).json({ message: "they're not matching" });
+    }
+
+    //hashing new password and selecting the old password from my database
+    const hashNewPassword = await bcrypt.hash(newPassword, 10);
+    //editing the old password
+    await User.findByIdAndUpdate(id, { password: hashNewPassword }).then(() => {
+      res.status(200).json({ message: "You've changed successfully " });
+    });
+  } catch (e) {
+    res.status(400).json({ message: "Please try again" });
+  }
+};
+
 exports.login = async (req,res)=>{
 try{
   const {email,password} = req.body
