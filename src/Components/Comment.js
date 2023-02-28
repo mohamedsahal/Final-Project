@@ -4,10 +4,8 @@ import jwtDecode from "jwt-decode";
 import { deleteComment } from "../Utils/Api";
 import { toast } from "react-toastify";
 
-
-
 function Comment(props) {
-
+  const defaultImage = "https://www.tech101.in/wp-content/uploads/2018/07/blank-profile-picture.png";
   const [user, setUser] = useState(null);
   
 
@@ -19,6 +17,8 @@ function Comment(props) {
       const decodedToken = jwtDecode(token);
       setUser(decodedToken.id);
     }
+
+    
   }, []);
 
 
@@ -40,7 +40,7 @@ function Comment(props) {
         <div className="">
           <img
             className="h-12 w-12 rounded-full"
-            src="https://www.shutterstock.com/image-photo/close-headshot-portrait-picture-smiling-600w-1733598437.jpg" alt=""
+            src={`/uploads/${props.data.user.image}`} alt="" onError={(e) => {e.target.src = defaultImage}}
           />
         </div>
         <div className="border w-full rounded-md p-3 relative ">

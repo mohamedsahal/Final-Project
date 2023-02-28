@@ -52,7 +52,8 @@ try{
   } 
 const token = jwt.sign({
     id: findUser.id,
-    email: findUser.email
+    email: findUser.email,
+    image: findUser.image
 }, process.env.JWT_SECRET, {expiresIn:"1d"})
 
 
@@ -80,21 +81,26 @@ try{
 }
 }
 
-exports. profile = async (req, res) => {
+exports.profile = async (req, res) => {
   try {
     //finding the user id
-
     const findId = req.user.id;
+
+    // Get the file path from req.file and add it to req.body
+    if (req.file) {
+      const imagePath = req.file.originalname;
+      req.body.image = imagePath;
+    }
+
     //finding Id and updating
     await User.findByIdAndUpdate(findId, req.body).then(() => {
-      res
-        .status(200)
-        .json({ message: "you've succesfully changed your profile" });
+      res.status(200).json({ message: "You've successfully changed your profile" });
     });
-  } catch {
-    res.status(200).json({ message: "OOPS couldn't change your profile" });
+  } catch (e) {
+    res.status(400).json({ message: "OOPS couldn't change your profile" });
   }
 };
+
 
 
 exports.protect =  (req,res,next)=>{
@@ -114,6 +120,7 @@ exports.protect =  (req,res,next)=>{
             req.user = {
               id: decoded.id,
               email: decoded.email,
+              image: decoded.image,
             };
          
           });

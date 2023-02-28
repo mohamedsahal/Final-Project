@@ -69,9 +69,9 @@ export const updateBlog = (id, blog) => {
   });
 }; 
 
- export const profileupdate = (inputs) => {
+ export const profileupdate = (formData) => {
    return axios
-     .put(`${URL}/auth/signup`, inputs, {
+     .put(`${URL}/auth/signup`, formData, {
        headers: { Authorization: token },
      })}
 

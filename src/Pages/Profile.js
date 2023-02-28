@@ -1,22 +1,36 @@
-import { useState} from "react";
+import { useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { profileupdate } from "../Utils/Api";
 
 function Profile() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const [inputs, setInputs] = useState({});
+  const [image, setImage] = useState(null);
+
+  function handleImageChange(e) {
+    setImage(e.target.files[0]);
+  }
 
   function handleOnSubmit() {
-    profileupdate(inputs)
+    const formData = new FormData();
+    formData.append("firstName", inputs.firstName);
+    formData.append("lastName", inputs.lastName);
+    formData.append("location", inputs.location);
+    formData.append("bio", inputs.bio);
+    formData.append("work", inputs.work);
+    formData.append("image", image);
+
+    profileupdate(formData)
       .then((res) => {
         toast.success(res.data.message);
+        navigate("/Dashboard");
       })
       .catch((e) => {
         toast.error(e.response.data.message);
       });
-      navigate("/Dashboard");
   }
+
   return (
     <div className="m-auto w-1/2 mt-5 p-5 bg-white rounded-md">
       <h2 className="mb-8 text-center font-bold text-2xl">Edit profile</h2>
@@ -29,7 +43,9 @@ function Profile() {
         <input
           className="w-full border p-2 rounded-md"
           type="text"
-          onChange={(e) => setInputs({ ...inputs, firstName: e.target.value })}
+          onChange={(e) =>
+            setInputs({ ...inputs, firstName: e.target.value })
+          }
         />
       </div>
       <div className="my-2 space-y-2">
@@ -37,7 +53,9 @@ function Profile() {
         <input
           className="w-full border p-2 rounded-md"
           type="text"
-          onChange={(e) => setInputs({ ...inputs, lastName: e.target.value })}
+          onChange={(e) =>
+            setInputs({ ...inputs, lastName: e.target.value })
+          }
         />
       </div>
       <div className="my-2 space-y-2">
@@ -45,7 +63,9 @@ function Profile() {
         <input
           className="w-full border p-2 rounded-md"
           type="text"
-          onChange={(e) => setInputs({ ...inputs, location: e.target.value })}
+          onChange={(e) =>
+            setInputs({ ...inputs, location: e.target.value })
+          }
         />
       </div>
       <div className="my-2 space-y-2">
@@ -65,7 +85,7 @@ function Profile() {
         ></textarea>
       </div>
       <div className="mt-4">
-        <input type="file" />
+        <input type="file" onChange={handleImageChange} />
       </div>
       <div className="flex justify-center mt-5">
         <button
@@ -74,7 +94,7 @@ function Profile() {
         >
           Save
         </button>
-      </div>
+        </div>
     </div>
   );
 }

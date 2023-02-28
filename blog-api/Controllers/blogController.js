@@ -7,8 +7,8 @@ const fs = require("fs");
 exports.blogs = async (req, res) => {
   try {
     //get all blogs
-    const blogs = await Blog.find({});
-    res.status(200).json({ blogs });
+    const blogs = await Blog.find({}).populate("user")
+    res.status(200).json({ blogs })
   } catch (e) {
     res.status(400).json({ message: "Could not get blogs" });
   }

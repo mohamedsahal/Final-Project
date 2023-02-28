@@ -6,15 +6,25 @@ import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getComments } from "../Utils/Api";
 import { postComment } from "../Utils/Api";
+import jwtDecode from "jwt-decode";
 
-function BlogComments() {
+function BlogComments(props) {
+  const defaultImage = "https://www.tech101.in/wp-content/uploads/2018/07/blank-profile-picture.png";
   const { id } = useParams();
   const { user } = useContext(UserContext);
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
+  const [image, setImage] = useState(null);
 
   //fetching the comments from database using useEffect
   useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      const decodedToken = jwtDecode(token);
+      setImage(decodedToken.image);
+    }
+
     fetchComments();
     const intervalId = setInterval(fetchComments, 100); 
     return () => clearInterval(intervalId); 
@@ -32,7 +42,7 @@ function BlogComments() {
 
   function handleOnSubmit(e) {
     postComment(comment, id)
-      .then((res) => {
+      .then(() => {
         toast.success("posted comment");
         fetchComments()
         setComment('')
@@ -51,8 +61,9 @@ function BlogComments() {
             <div className="h-12 w-12">
               <img
                 className="rounded-full"
-                src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80"
+                src={`/uploads/${image}`}
                 alt=""
+                onError={(e) => {e.target.src = defaultImage}}
               />
             </div>
             <textarea

@@ -2,9 +2,23 @@ import {MdSearch} from "react-icons/md"
 import {Link} from "react-router-dom"
 import { UserContext } from "../Utils/UserContext";
 import { useContext } from "react";
+import { useEffect,useState } from "react";
+import jwtDecode from "jwt-decode";
 
 function Header(){
+    const defaultImage = "https://www.tech101.in/wp-content/uploads/2018/07/blank-profile-picture.png";
+    const [image, setImage] = useState(null);
+    useEffect(()=>{
+        const token = localStorage.getItem("token");
+
+    if (token) {
+      const decodedToken = jwtDecode(token);
+      setImage(decodedToken.image);
+    }
+
+    },[])
     const { user } = useContext(UserContext);
+    
     return (
         <div className="flex justify-between bg-white py-4 px-20  border-b-2">
             <div className="flex items-center">
@@ -23,7 +37,11 @@ function Header(){
                 </Link>
                 <Link to="/dashboard">
                 <div className="h-10 w-10 ml-4">               
-                     <img className="rounded-full" src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80" alt=""/>
+                     <img className="rounded-full" 
+                     src={`/uploads/${image}`}
+                     alt=""
+                     onError={(e) => {e.target.src = defaultImage}}
+                     />
                 </div>
                 </Link>
             </div>)

@@ -1,8 +1,18 @@
-import { useState } from "react"
+import { useState,useEffect } from "react"
 import { FaRegComment } from "react-icons/fa"
 import { Link } from "react-router-dom"
 
+
+
+
+
 function BlogCard(props) {
+  const defaultImage = "https://www.tech101.in/wp-content/uploads/2018/07/blank-profile-picture.png";
+  useEffect(() => {
+
+    console.log(props)
+  }, []);
+
   const [imageLoaded, setImageLoaded] = useState(true);
 
   function handleImageError() {
@@ -16,9 +26,9 @@ function BlogCard(props) {
           <div>
             <img
               className="rounded-t-md"
-              src={`/uploads/${props.data.image}`}
+              src={`/uploads/${props.data.image}`} 
               alt="sawir"
-              onError={handleImageError}
+              onError={(e) => handleImageError}
             />
           </div>
         )}
@@ -26,13 +36,14 @@ function BlogCard(props) {
           <div className="h-12 w-12">
             <img
               className="rounded-full"
-              src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80"
+              src={`/uploads/${props.data.user.image}`}
               alt="sawir"
+              onError={(e) => {e.target.src = defaultImage}}
             />
           </div>
           <div className="space-y-1.5">
             <div className="leading-4">
-              <h4>Mohamed ahmed</h4>
+              <h4>{props.data.user.firstName} {props.data.user.secondName}</h4>
               <small className="text-gray-400">Jan 12</small>
             </div>
             <div>

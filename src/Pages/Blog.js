@@ -23,7 +23,7 @@ function Blog(){
     if(loading) return
     return (
         <div className="flex my-5 space-x-5">
-          <BlogContent blog={blog}/>
+          <BlogContent blog={blog} />
           <BlogAuthor  user={blog.user}/>
         </div>
     )

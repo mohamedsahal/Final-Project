@@ -9,7 +9,7 @@ function Home(){
     useEffect(() =>{
         getAllBlogs().then((res)=>{
             setBlogs(res.data.blogs)
-
+            
         }).catch((e)=>{
             console.log(e)
 
@@ -20,7 +20,7 @@ function Home(){
         <div className="flex justify-between space-x-5 mt-5">
            <SideBar/>
             <div className="flex-1">
-               {blogs.map((blog)=> <BlogCard data={blog}/>)}
+               {blogs.map((blog)=> <BlogCard data={blog} />)}
             </div>
             <div className="basis-1/4">
                 <div className="bg-slate-50 py-2 rounded-md">
@@ -29,9 +29,7 @@ function Home(){
                         <small className="text-blue-700 font-semibold">See all</small>
                     </div>
                     <ListCard/>
-                    <ListCard/>
-                    <ListCard/>
-                    <ListCard/>
+                    
                 </div>
             </div>
         </div>

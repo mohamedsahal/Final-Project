@@ -1,7 +1,13 @@
+import { useEffect } from "react";
 import { useState } from "react"
 import BlogComments from "./BlogComments"
 
 function BlogContent(props){
+
+  useEffect(()=>{
+// console.log(props)
+  },[])
+  const defaultImage = "https://www.tech101.in/wp-content/uploads/2018/07/blank-profile-picture.png";
     const [imageLoaded, setImageLoaded] = useState(true);
     
   function handleImageError() {
@@ -25,10 +31,10 @@ function BlogContent(props){
             <div className="py-5 px-16">
             <div className="flex items-center space-x-3 py-3">
                 <div className="h-12 w-12">               
-                     <img className="rounded-full" src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80"/>
+                     <img className="rounded-full" src={`/uploads/${props.blog.user.image}`} alt="" onError={(e) => {e.target.src = defaultImage}}/>
                 </div>
             <div className="leading-4">
-                <h4>Mohamed ahmed</h4>
+                <h4>{props.blog.user.firstName} {props.blog.user.secondName}</h4>
                 <small className="text-gray-400">Jan 12</small>
             </div>
             </div>
@@ -37,7 +43,7 @@ function BlogContent(props){
                 {props.blog.content}
             </div>
             </div>
-            <BlogComments/>
+            <BlogComments />
         </div>
     </div>
     )
