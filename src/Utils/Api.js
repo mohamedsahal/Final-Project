@@ -31,9 +31,14 @@ export const signup =(inputs)=>{
 
 }
 
-export const newPost =(inputs)=>{
-   return axios.post(`${URL}/blog`, inputs, {headers: { Authorization: token }})
-}
+export const newPost = (formData) => {
+   return axios.post(`${URL}/blog`, formData, {
+     headers: {
+       Authorization: token,
+       "Content-Type": "multipart/form-data",
+     },
+   });
+ }; 
 
 export const getComments =(id)=>{
    return axios.get(`${URL}/comment/${id}`)
@@ -56,8 +61,13 @@ export const postComment =(comment,id)=>{
 
 
 export const updateBlog = (id, blog) => {
-   return axios.put(`${URL}/blog/${id}`, blog)
- }
+   return axios.put(`${URL}/blog/${id}`,  blog, {
+    headers: {
+      Authorization: token,
+      "Content-Type": "multipart/form-data",
+    },
+  });
+}; 
 
  export const profileupdate = (inputs) => {
    return axios

@@ -9,12 +9,12 @@ function Edit() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [blog, setBlog] = useState({ title: "", content: "" });
+  const [blog, setBlog] = useState({ title: "", content: "", image: null });
 
   useEffect(() => {
     getOneblog(id)
       .then((res) => {
-        setBlog({ title: res.data.blog.title, content: res.data.blog.content });
+        setBlog({ title: res.data.blog.title, content: res.data.blog.content, image: res.data.blog.image });
       })
       .catch((e) => {
         toast.error(e.response.data.message);
@@ -22,13 +22,26 @@ function Edit() {
   }, [id]);
 
   function handleOnChange(e) {
-    setBlog({ ...blog, [e.target.name]: e.target.value });
+    if (e.target.type === "file") {
+      setBlog({ ...blog, [e.target.name]: e.target.files[0] });
+    } else {
+      setBlog({ ...blog, [e.target.name]: e.target.value });
+    }
   }
+
+  
 
   function handleOnSubmit(e) {
     e.preventDefault();
 
-    updateBlog(id,blog)
+    const formData = new FormData();
+    formData.append("title", blog.title);
+    formData.append("content", blog.content);
+    if (blog.image) {
+      formData.append("image", blog.image);
+    }
+
+    updateBlog(id, formData)
       .then((res) => {
         toast.success(res.data.message);
         navigate("/Dashboard");
@@ -62,6 +75,21 @@ function Edit() {
           value={blog.content}
           onChange={handleOnChange}
         ></textarea>
+
+        <div className="my-3">
+          <label className="block font-bold mb-2">Image</label>
+          <input
+            className="border w-full rounded-md p-2 my-2"
+            type="file"
+            name="image"
+            accept="image/*"
+            onChange={handleOnChange}
+          />
+          {blog.image && (
+            <img className="mt-2" src={`/uploads/${blog.image}`} alt="Blog Image" />
+          )}
+        </div>
+        
         <div className="flex justify-end">
           <button className="px-6 py-2 bg-blue-500 text-white rounded-md">
             Update

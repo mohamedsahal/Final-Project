@@ -1,11 +1,26 @@
+import { useState } from "react"
 import BlogComments from "./BlogComments"
 
 function BlogContent(props){
+    const [imageLoaded, setImageLoaded] = useState(true);
+    
+  function handleImageError() {
+    setImageLoaded(false);
+  }
     return(
         <div className="flex-1">
         <div className="bg-white rounded-md">
             <div>
-                <img className="rounded-t-md" src="https://appmaster.io/api/_files/PqV7MuNwv89GrZvBd4LNNK/download/"/>
+            {imageLoaded && (
+          <div>
+            <img
+              className="rounded-t-md"
+              src={`/uploads/${props.blog.image}`}
+              alt="sawir"
+              onError={handleImageError}
+            />
+          </div>
+        )}
             </div>
             <div className="py-5 px-16">
             <div className="flex items-center space-x-3 py-3">

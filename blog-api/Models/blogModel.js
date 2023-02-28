@@ -1,5 +1,4 @@
-//title:string
-//content:string
+
 const mongoose = require("mongoose")
 
 const blogSchema = mongoose.Schema({
@@ -7,6 +6,9 @@ const blogSchema = mongoose.Schema({
         type:String
     },
     content:{
+        type:String
+    },
+    image:{
         type:String
     },
     user:{
