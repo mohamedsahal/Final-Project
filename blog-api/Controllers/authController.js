@@ -64,22 +64,25 @@ const token = jwt.sign({
 }
 
 exports.signUp = async(req,res)=>{
-try{
-    const {email,password} = req.body
-    const findUser = await User.findOne({email})
-    if(findUser){
-     return res.status(400).json({message:"Email already in use"})
-    }
-    const hashPasword = await bcrypt.hash(password, 10)
-    req.body.password = hashPasword
- 
-    await User.create(req.body)
-    res.status(200).json({message:"You have created a account"})
-}catch(e){
-    res.status(400).json({message:"Oops we couldn't save"})
-    
-}
-}
+  try{
+      const {email,password} = req.body
+      const findUser = await User.findOne({email})
+      if(findUser){
+       return res.status(400).json({message:"Email already in use"})
+      }
+      const hashPasword = await bcrypt.hash(password, 10)
+      req.body.password = hashPasword
+  
+      // Add joinedDate field with current date
+      req.body.joinedDate = new Date();
+   
+      await User.create(req.body)
+      res.status(200).json({message:"You have created a account"})
+  }catch(e){
+      res.status(400).json({message:"Oops we couldn't save"})
+      
+  }
+  }
 
 exports.profile = async (req, res) => {
   try {
