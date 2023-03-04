@@ -28,6 +28,10 @@ const userSchema = mongoose.Schema({
       },
       image: {
         type: String,
+      },
+      joinedDate: { 
+          type: Date,
+          default: Date.now 
       }
 })
 
