@@ -35,7 +35,7 @@ function BlogContent(props){
                 </div>
             <div className="leading-4">
                 <h4>{props.blog.user.firstName} {props.blog.user.secondName}</h4>
-                <small className="text-gray-400">Jan 12</small>
+                <small className="text-gray-400">{new Date (props.blog.createdAt).toLocaleDateString()}</small>
             </div>
             </div>
             <h3 className="font-bold text-5xl hover:text-sky-600">{props.blog.title}</h3>
