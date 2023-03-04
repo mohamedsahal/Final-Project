@@ -55,6 +55,9 @@ exports.saveBlog = async (req, res) => {
 
     req.body.user = req.user.id;
 
+    // Add createdAt field with current date and time
+    req.body.createdAt = Date.now();
+
     // Save blog
     await Blog.create(req.body);
 
