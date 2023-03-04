@@ -44,7 +44,7 @@ function BlogCard(props) {
           <div className="space-y-1.5">
             <div className="leading-4">
               <h4>{props.data.user.firstName} {props.data.user.secondName}</h4>
-              <small className="text-gray-400">Jan 12</small>
+              <small className="text-gray-400">{new Date (props.data.createdAt).toLocaleDateString()}</small>
             </div>
             <div>
               <h3 className="font-bold text-2xl hover:text-sky-600">
