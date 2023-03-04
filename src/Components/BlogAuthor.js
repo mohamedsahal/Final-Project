@@ -23,7 +23,7 @@ function BlogAuthor(props) {
           </div>
           <div>
             <h3 className="font-bold text-gray-500">Joined</h3>
-            <h3>3rd Jan 23</h3>
+            <h3>{new Date(props.user.joinedDate).toLocaleDateString()}</h3>
           </div>
         </div>
       </div>
